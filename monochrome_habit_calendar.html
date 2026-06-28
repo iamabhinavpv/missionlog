@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Log</title>
+  <style>
+    :root {
+      --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --color-background-primary: #0b1016;
+      --color-surface-primary: #111720;
+      --color-text-primary: #eef2f5;
+      --color-text-secondary: #7f8b9b;
+      --color-text-tertiary: #5e7187;
+      --color-border-tertiary: #233140;
+      --color-accent: #38a7ff;
+      --border-radius-md: 14px;
+    }
+
+    [data-theme="light"] {
+      --color-background-primary: #f7f8fb;
+      --color-surface-primary: #ffffff;
+      --color-text-primary: #111827;
+      --color-text-secondary: #4b5563;
+      --color-text-tertiary: #6b7280;
+      --color-border-tertiary: #d1d5db;
+      --color-accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--color-background-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      background: var(--color-surface-primary);
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .month-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(56, 167, 255, 0.1);
+    }
+
+    .theme-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      display: none;
+    }
+
+    [data-theme="light"] .theme-icon-sun,
+    :not([data-theme="light"]) .theme-icon-moon {
+      display: inline-block;
+    }
+
+    .selected-date {
+      margin-bottom: 12px;
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--color-text-tertiary);
+      margin-bottom: 10px;
+      gap: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .date-button {
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-md);
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-primary);
+      background: transparent;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .date-button:hover:not(:disabled) {
+      border-color: var(--color-accent);
+    }
+
+    .date-button.selected {
+      background: rgba(56, 167, 255, 0.1);
+      border-color: var(--color-accent);
+    }
+
+    .date-button:disabled {
+      color: var(--color-text-tertiary);
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border-tertiary);
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell" role="application">
+    <h1 class="sr-only">Mission Log</h1>
+
+    <div class="header">
+      <button id="prev" aria-label="Previous month" title="Previous month">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div style="display:flex;align-items:center;gap:10px;flex:1;justify-content:center;flex-wrap:wrap;">
+        <div class="month-title" id="month-label">June 2026</div>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg viewBox="0 0 24 24" class="theme-icon theme-icon-moon" aria-hidden="true"><path d="M21 12.79A9 9 0 0111.21 3 7 7 0 0012 17a7 7 0 009-4.21z"/></svg>
+          <svg viewBox="0 0 24 24" class="theme-icon theme-icon-sun" aria-hidden="true"><path d="M12 4.5V2m0 20v-2.5M4.5 12H2m20 0h-2.5M5.64 5.64l-1.77-1.77m16.26 16.26l-1.77-1.77M5.64 18.36l-1.77 1.77m16.26-16.26l-1.77 1.77M12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+        </button>
+      </div>
+
+      <button id="next" aria-label="Next month" title="Next month">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div id="selected-date" class="selected-date">Tap a date to select it.</div>
+    <div id="weekdays" class="weekdays"></div>
+    <div id="grid" class="grid"></div>
+
+    <div class="status-row">
+      <span>streak</span>
+      <span id="streak">0</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

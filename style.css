@@ -1,0 +1,366 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #0f1216;
+  --surface: #171d24;
+  --surface-soft: #1f2832;
+  --text: #eef2f5;
+  --muted: #7f8b9b;
+  --border: #212832;
+  --accent: #38a7ff;
+  --accent-soft: #264d6f;
+  --danger: #ff6f61;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  line-height: 1.5;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-header {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.subhead {
+  margin: 0;
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.main-grid {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.panel-head p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 680px;
+}
+
+.habit-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.habit-form input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #13171c;
+  color: var(--text);
+  padding: 14px 16px;
+}
+
+.habit-form input::placeholder {
+  color: var(--muted);
+}
+
+.button {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-weight: 600;
+}
+
+.button-accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav-button {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.month-label {
+  min-width: 180px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.calendar-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.weekday-row {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.day-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.day-cell {
+  min-height: 104px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: #141a20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.day-cell.current-day {
+  border-color: var(--accent);
+}
+
+.day-cell.future {
+  opacity: 0.52;
+}
+
+.day-cell.empty {
+  background: transparent;
+  border: none;
+}
+
+.day-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.day-cell.current-day .day-label {
+  background: rgba(56, 167, 255, 0.14);
+}
+
+.dot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.habit-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.8px solid var(--accent);
+  background: transparent;
+  padding: 0;
+}
+
+.habit-dot.done {
+  background: var(--accent);
+}
+
+.habit-dot:disabled {
+  border-color: #3f4f63;
+  cursor: default;
+  background: transparent;
+}
+
+.habit-list,
+.summary-list {
+  display: grid;
+  gap: 12px;
+}
+
+.habit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #121720;
+}
+
+.habit-item span {
+  color: var(--text);
+}
+
+.habit-item button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 14px;
+}
+
+.summary-item {
+  padding: 18px 16px;
+  border-radius: 14px;
+  background: #121720;
+  border: 1px solid var(--border);
+}
+
+.summary-item header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.summary-item h3 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.summary-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.progress-track {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #1f2832;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.empty-state {
+  color: var(--muted);
+  padding: 20px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+}
+
+.app-footer {
+  margin-top: 24px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .panel-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .month-nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .habit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .day-cell {
+    min-height: 96px;
+  }
+}
+
+@media (max-width: 520px) {
+  .day-grid {
+    gap: 8px;
+  }
+
+  .day-cell {
+    padding: 10px;
+  }
+
+  .day-label {
+    width: 28px;
+    height: 28px;
+  }
+
+  .habit-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
